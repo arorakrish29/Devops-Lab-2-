@@ -1,0 +1,22 @@
+Docker Container and Image Management
+
+1. List Docker images:
+   docker images
+
+2. List running containers:
+   docker ps
+
+3. List all containers:
+   docker ps -a
+
+4. Stop a container:
+   docker stop devops-container
+
+5. Restart a container:
+   docker start devops-container
+
+6. Remove a container:
+   docker rm devops-container
+
+7. Remove a Docker image:
+   docker rmi devops-node-app
