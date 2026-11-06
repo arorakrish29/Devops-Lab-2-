@@ -1,0 +1,35 @@
+
+name: Kubernetes Continuous Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Start Minikube
+        uses: medyagh/setup-minikube@latest
+
+      - name: Check Kubernetes cluster
+        run: kubectl get nodes
+
+      - name: Deploy application
+        run: |
+          kubectl apply -f Kubernetes-Deployment/deployment.yaml
+          kubectl apply -f Kubernetes-Deployment/service.yaml
+
+      - name: Verify deployment
+        run: |
+          kubectl rollout status deployment/nginx-deployment --timeout=120s
+          kubectl get deployments
+          kubectl get pods
+          kubectl get services
